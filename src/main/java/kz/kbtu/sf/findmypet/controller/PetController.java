@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pets")
@@ -14,29 +15,28 @@ public class PetController {
     @Autowired
     private PetService petService;
 
-    @PostMapping
-    public Pet addPet(@RequestBody Pet pet) {
-        return petService.savePet(pet);
-    }
-
     @GetMapping
     public List<Pet> getAllPets() {
         return petService.getAllPets();
     }
 
     @GetMapping("/{id}")
-    public Pet getPetById(@PathVariable Long id) {
+    public Optional<Pet> getPetById(@PathVariable Long id) {
         return petService.getPetById(id);
     }
 
+    @PostMapping
+    public Pet createPet(@RequestBody Pet pet) {
+        return petService.createPet(pet);
+    }
+
     @PutMapping("/{id}")
-    public Pet updatePet(@PathVariable Long id, @RequestBody Pet pet) {
-        return petService.updatePet(id, pet);
+    public Pet updatePet(@PathVariable Long id, @RequestBody Pet updatedPet) {
+        return petService.updatePet(id, updatedPet);
     }
 
     @DeleteMapping("/{id}")
-    public String deletePet(@PathVariable Long id) {
+    public void deletePet(@PathVariable Long id) {
         petService.deletePet(id);
-        return "Pet deleted successfully!";
     }
 }

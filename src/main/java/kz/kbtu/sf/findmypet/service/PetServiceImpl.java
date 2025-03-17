@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetServiceImpl implements PetService {
@@ -14,30 +15,35 @@ public class PetServiceImpl implements PetService {
     private PetRepository petRepository;
 
     @Override
-    public Pet savePet(Pet pet) {
-        return petRepository.save(pet);
-    }
-
-    @Override
     public List<Pet> getAllPets() {
         return petRepository.findAll();
     }
 
     @Override
-    public Pet getPetById(Long id) {
-        return petRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Pet not found with ID: " + id));
+    public Optional<Pet> getPetById(Long id) {
+        return petRepository.findById(id);
     }
 
     @Override
-    public Pet updatePet(Long id, Pet pet) {
-        return null;
+    public Pet createPet(Pet pet) {
+        return petRepository.save(pet);
     }
 
+    @Override
+    public Pet updatePet(Long id, Pet updatedPet) {
+        return petRepository.findById(id).map(pet -> {
+            pet.setName(updatedPet.getName());
+            pet.setType(updatedPet.getType());
+            pet.setBreed(updatedPet.getBreed());
+            pet.setAge(updatedPet.getAge());
+            pet.setStatus(updatedPet.getStatus());
+            pet.setPhoto(updatedPet.getPhoto());
+            return petRepository.save(pet);
+        }).orElse(null);
+    }
 
     @Override
     public void deletePet(Long id) {
-        Pet pet = getPetById(id);
-        petRepository.delete(pet);
+        petRepository.deleteById(id);
     }
 }
