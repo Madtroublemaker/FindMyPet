@@ -1,5 +1,6 @@
 package kz.kbtu.sf.findmypet.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class LostPetReport {
     private String location;
 
     @Column(name = "report_time")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime reportTime;
 
     @ManyToOne
