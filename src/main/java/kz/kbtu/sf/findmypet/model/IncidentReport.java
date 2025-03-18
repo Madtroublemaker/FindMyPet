@@ -7,11 +7,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "incident_reports")
-@Data
 public class IncidentReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

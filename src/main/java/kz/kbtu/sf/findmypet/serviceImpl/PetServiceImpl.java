@@ -1,7 +1,8 @@
-package kz.kbtu.sf.findmypet.service;
+package kz.kbtu.sf.findmypet.serviceImpl;
 
 import kz.kbtu.sf.findmypet.model.Pet;
 import kz.kbtu.sf.findmypet.repository.PetRepository;
+import kz.kbtu.sf.findmypet.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,16 +3,21 @@ package kz.kbtu.sf.findmypet.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
-public class Post {
+@Table(name = "lost_pet_reports")
+public class LostPetReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String type;
-    private String status;
+
+    private String description;
     private String location;
-    private String photo;
+
+    @Column(name = "report_time")
+    private LocalDateTime reportTime;
 
     @ManyToOne
     @JoinColumn(name = "pet_id")
@@ -20,5 +25,5 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User author;
+    private User user;
 }
