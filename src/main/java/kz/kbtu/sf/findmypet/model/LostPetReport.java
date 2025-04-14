@@ -4,28 +4,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "lost_pet_reports")
-public class LostPetReport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class LostPetReport extends PetReport {
 
-    private String description;
-    private String location;
+    private BigDecimal reward;
 
-    @Column(name = "report_time")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime reportTime;
+    @Column(name = "last_seen_date")
+    private LocalDateTime lastSeenDate;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_id")
-    private Pet pet;
+    private boolean isStillMissing;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private String caretakerContact;
 }

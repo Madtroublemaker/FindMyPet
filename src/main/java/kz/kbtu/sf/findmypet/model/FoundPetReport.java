@@ -8,22 +8,13 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "found_pet_reports")
-public class FoundPetReport {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class FoundPetReport extends PetReport {
 
-    private String description;
-    private String location;
+    private boolean isReunited;
 
-    @Column(name = "report_time")
-    private LocalDateTime reportTime;
+    @Column(name = "found_date")
+    private LocalDateTime foundDate;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_id")
-    private Pet pet;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private String caretakerContact;
 }
+

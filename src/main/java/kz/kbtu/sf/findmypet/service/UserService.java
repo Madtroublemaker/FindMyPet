@@ -8,7 +8,11 @@ import java.util.Optional;
 public interface UserService {
     List<User> getAllUsers();
     Optional<User> getUserById(Long id);
-    User createUser(User user);
+    User createUser(User user); // may already act as save
     User updateUser(Long id, User updatedUser);
     void deleteUser(Long id);
+
+    // ➕ Add these
+    Optional<User> findByUsername(String username);
+    void save(User user);
 }
